@@ -15,6 +15,7 @@
 #ifndef DRACO_C_API_H_
 #define DRACO_C_API_H_
 
+#include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
 

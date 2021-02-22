@@ -1,2 +1,3 @@
-# c-draco
-Plain C API for google/draco
+# DRACO C API
+
+Work in progress! No docs yet.

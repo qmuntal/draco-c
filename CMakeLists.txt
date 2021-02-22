@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 include(FetchContent)
-project (draco_c)
+set(CMAKE_CXX_STANDARD 11)
+project (draco_c C CXX)
 
 FetchContent_Declare(
     draco

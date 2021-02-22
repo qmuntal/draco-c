@@ -1,0 +1,36 @@
+on: [push, pull_request]
+name: Build
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            cc: gcc-10
+            cxx: g++-10
+            generator: Unix Makefiles
+          - os: ubuntu-20.04
+            cc: clang
+            cxx: clang++
+            generator: Unix Makefiles
+          - os: macos-10.15
+            cc: gcc-10
+            cxx: g++-10
+            generator: Unix Makefiles
+          - os: windows-2019
+            cc: x86_64-w64-mingw32-gcc
+            cxx: x86_64-w64-mingw32-g++
+            generator: MinGW Makefiles
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir _gh_build
+      - run: cmake -G "${{ matrix.generator }}" -DDRACO_C_TESTS=ON ..
+        working-directory: ./_gh_build
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+      - run: make -j10
+        working-directory: ./_gh_build
+      - run: ctest -V
+        working-directory: ./_gh_build

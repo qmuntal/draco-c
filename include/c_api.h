@@ -50,7 +50,7 @@ EXPORT_API int dracoStatusCode(const draco_status *status);
 EXPORT_API bool dracoStatusOk(const draco_status *status);
 
 // Returns the status message.
-// The memory backing memory is valid meanwhile status is not released.
+// The backing memory is valid meanwhile status is not released.
 EXPORT_API draco_string dracoStatusErrorMsg(const draco_status *status);
 
 // draco::GeometryAttribute::Type

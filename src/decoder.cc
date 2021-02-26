@@ -15,9 +15,21 @@ bool dracoStatusOk(const draco_status *status) {
   return reinterpret_cast<const draco::Status*>(status)->ok();
 }
 
-draco_string dracoStatusErrorMsg(const draco_status *status) {
-  auto msg = reinterpret_cast<const draco::Status*>(status)->error_msg();
-  return reinterpret_cast<draco_string>(msg);
+size_t dracoStatusErrorMsgLength(const draco_status *status) {
+  auto msg = reinterpret_cast<const draco::Status*>(status)->error_msg_string();
+  return msg.size() + 1;
+}
+
+size_t dracoStatusErrorMsg(const draco_status *status, char *msg, size_t length) {
+  if (msg == nullptr) {
+    return 0;
+  }
+  auto msg_ = reinterpret_cast<const draco::Status*>(status)->error_msg_string();
+  if (msg_.size() >= length) {
+    return 0;
+  }
+  memcpy(msg, msg_.c_str(), length);
+  return msg_.size() + 1;
 }
 
 draco_decoder* dracoNewDecoder() {

@@ -117,7 +117,7 @@ static bool GetAttributeDataArrayForAllPoints(const draco::PointCloud *pc,
 
 bool dracoMeshGetAttributeData(const draco_mesh *pc,
                                const draco_point_attr *pa,
-                               dracoDataType data_type,
+                               draco_data_type data_type,
                                const size_t out_size,
                                void *out_values) {
   auto pcc = reinterpret_cast<const draco::Mesh*>(pc);
@@ -150,9 +150,4 @@ bool dracoMeshGetAttributeData(const draco_mesh *pc,
     default:
       return false;
   }
-}
-
-int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, dracoGeometryType geo_type) {
-  auto m = reinterpret_cast<const draco::Mesh*>(mesh); 
-  return m->GetNamedAttributeId(static_cast<draco::GeometryAttribute::Type>(geo_type));
 }

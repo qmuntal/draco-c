@@ -46,7 +46,7 @@ typedef enum {
     GT_COLOR,
     GT_TEX_COORD,
     GT_GENERIC
-} dracoGeometryType;
+} draco_geometry_type;
 
 // draco::DataType
 
@@ -63,7 +63,7 @@ typedef enum {
   DT_FLOAT32,
   DT_FLOAT64,
   DT_BOOL
-} dracoDataType;
+} draco_data_type;
 
 typedef const char* draco_string; // NULL terminated  
 
@@ -87,9 +87,9 @@ typedef struct draco_point_attr draco_point_attr;
 
 EXPORT_API size_t dracoPointAttrSize(const draco_point_attr* pa);
 
-EXPORT_API dracoGeometryType dracoPointAttrType(const draco_point_attr* pa);
+EXPORT_API draco_geometry_type dracoPointAttrType(const draco_point_attr* pa);
 
-EXPORT_API dracoDataType dracoPointAttrDataType(const draco_point_attr* pa);
+EXPORT_API draco_data_type dracoPointAttrDataType(const draco_point_attr* pa);
 
 EXPORT_API int8_t dracoPointAttrNumComponents(const draco_point_attr* pa);
 
@@ -133,13 +133,13 @@ EXPORT_API bool dracoMeshGetTrianglesUint32(const draco_mesh *mesh,
 
 EXPORT_API const draco_point_attr* dracoMeshGetAttribute(const draco_mesh *mesh, int32_t att_id);
 
-EXPORT_API int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, dracoGeometryType geo_type);
+EXPORT_API int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, draco_geometry_type geo_type);
 
 EXPORT_API const draco_point_attr* dracoMeshGetAttributeByUniqueId(const draco_mesh *mesh, uint32_t unique_id);
 
 EXPORT_API bool dracoMeshGetAttributeData(const draco_mesh *mesh,
                                           const draco_point_attr *pa,
-                                          dracoDataType data_type,
+                                          draco_data_type data_type,
                                           const size_t out_size,
                                           void *out_values);
 
@@ -150,6 +150,8 @@ typedef struct draco_decoder draco_decoder;
 EXPORT_API draco_decoder* dracoNewDecoder();
 
 EXPORT_API void dracoDecoderRelease(draco_decoder *decoder);
+
+EXPORT_API void dracoDecoderSkipAttributeTransform(draco_decoder *decoder, draco_geometry_type geo_type);
 
 EXPORT_API draco_status* dracoDecoderArrayToMesh(draco_decoder *decoder, 
                                                  const char *data, 

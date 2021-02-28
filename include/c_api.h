@@ -133,7 +133,7 @@ EXPORT_API bool dracoMeshGetTrianglesUint32(const draco_mesh *mesh,
 
 EXPORT_API const draco_point_attr* dracoMeshGetAttribute(const draco_mesh *mesh, int32_t att_id);
 
-EXPORT_API int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, dracoDataType data_type);
+EXPORT_API int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, dracoGeometryType geo_type);
 
 EXPORT_API const draco_point_attr* dracoMeshGetAttributeByUniqueId(const draco_mesh *mesh, uint32_t unique_id);
 

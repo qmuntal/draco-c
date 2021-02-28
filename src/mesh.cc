@@ -74,6 +74,12 @@ const draco_point_attr* dracoMeshGetAttributeByUniqueId(const draco_mesh *mesh, 
   return reinterpret_cast<const draco_point_attr*>(attr);
 }
 
+
+int32_t dracoMeshGetNamedAttributeId(const draco_mesh *mesh, draco_geometry_type geo_type) {
+  auto type = static_cast<draco::GeometryAttribute::Type>(geo_type);
+  return reinterpret_cast<const draco::Mesh*>(mesh)->GetNamedAttributeId(type);
+}
+
 template <class T>
 static bool GetAttributeDataArrayForAllPoints(const draco::PointCloud *pc,
                                               const draco::PointAttribute *pa,

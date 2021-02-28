@@ -35,7 +35,7 @@ draco_mesh *DecodeToDracoMesh(const std::string &file_name) {
   
   auto mesh = dracoNewMesh();
   auto decoder = dracoNewDecoder();
-  dracoDecoderArrayToMesh(decoder, data.data(), data.size(), mesh);
+  dracoDecoderDecodeMesh(decoder, data.data(), data.size(), mesh);
   dracoDecoderRelease(decoder);
   return mesh;
 }
@@ -45,8 +45,8 @@ TEST(DracoCAPITest, TestDecode) {
   ASSERT_NE(mesh, nullptr);
   auto num_faces = dracoMeshNumFaces(mesh);
   ASSERT_EQ(num_faces, 170);
-  ASSERT_EQ(dracoMeshNumPoints(mesh), 99);
-  auto num_attrs = dracoMeshNumAttrs(mesh);
+  ASSERT_EQ(dracoPointCloudNumPoints(mesh), 99);
+  auto num_attrs = dracoPointCloudNumAttrs(mesh);
   ASSERT_EQ(num_attrs, 2);
 
   auto indices_size = 3 * num_faces * sizeof(uint32_t);
@@ -54,7 +54,7 @@ TEST(DracoCAPITest, TestDecode) {
   ASSERT_TRUE(dracoMeshGetTrianglesUint32(mesh, indices_size, indices));
   free(indices);
 
-  auto pa1 = dracoMeshGetAttribute(mesh, 0);
+  auto pa1 = dracoPointCloudGetAttribute(mesh, 0);
   ASSERT_EQ(dracoPointAttrType(pa1), GT_POSITION);
   ASSERT_EQ(dracoPointAttrDataType(pa1), DT_FLOAT32);
   ASSERT_EQ(dracoPointAttrNumComponents(pa1), 3);
@@ -62,7 +62,7 @@ TEST(DracoCAPITest, TestDecode) {
   ASSERT_EQ(dracoPointAttrByteStride(pa1), 12);
   ASSERT_EQ(dracoPointAttrUniqueId(pa1), 0);
 
-  auto pa2 = dracoMeshGetAttribute(mesh, 1);
+  auto pa2 = dracoPointCloudGetAttribute(mesh, 1);
   ASSERT_EQ(dracoPointAttrType(pa2), GT_NORMAL);
   ASSERT_EQ(dracoPointAttrDataType(pa2), DT_FLOAT32);
   ASSERT_EQ(dracoPointAttrNumComponents(pa2), 3);
@@ -72,9 +72,9 @@ TEST(DracoCAPITest, TestDecode) {
 
   auto arr_size = 3*99*sizeof(float);
   auto arr = (float *)malloc(arr_size);
-  ASSERT_TRUE(dracoMeshGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size, arr));
-  ASSERT_FALSE(dracoMeshGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size+1, arr));
-  ASSERT_FALSE(dracoMeshGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size-1, arr));
+  ASSERT_TRUE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size, arr));
+  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size+1, arr));
+  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size-1, arr));
 
   dracoMeshRelease(mesh);
 }

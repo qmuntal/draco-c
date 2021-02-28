@@ -40,13 +40,24 @@ void dracoDecoderRelease(draco_decoder *decoder) {
   free(decoder);
 }
 
-draco_status* dracoDecoderArrayToMesh(draco_decoder *decoder, 
-                                  const char *data, 
-                                  size_t data_size,
-                                  draco_mesh *out_mesh) {
+draco_status* dracoDecoderDecodeMesh(draco_decoder *decoder, 
+                                     const char *data, 
+                                     size_t data_size,
+                                     draco_mesh *out_mesh) {
   draco::DecoderBuffer buffer;
   buffer.Init(data, data_size);
   auto m = reinterpret_cast<draco::Mesh*>(out_mesh);
+  const auto &last_status_ = reinterpret_cast<draco::Decoder*>(decoder)->DecodeBufferToGeometry(&buffer, m);
+  return reinterpret_cast<draco_status*>(new draco::Status(last_status_));
+}
+
+draco_status* dracoDecoderDecodePointCloud(draco_decoder *decoder, 
+                                           const char *data, 
+                                           size_t data_size,
+                                           draco_point_cloud *out_pc) {
+  draco::DecoderBuffer buffer;
+  buffer.Init(data, data_size);
+  auto m = reinterpret_cast<draco::PointCloud*>(out_pc);
   const auto &last_status_ = reinterpret_cast<draco::Decoder*>(decoder)->DecodeBufferToGeometry(&buffer, m);
   return reinterpret_cast<draco_status*>(new draco::Status(last_status_));
 }

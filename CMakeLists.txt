@@ -21,6 +21,7 @@ endif()
 list(APPEND draco_c_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/src/decoder.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/mesh.cc"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/point_cloud.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/point_attribute.cc"
 )
 

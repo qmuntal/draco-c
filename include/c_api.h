@@ -151,8 +151,6 @@ EXPORT_API draco_decoder* dracoNewDecoder();
 
 EXPORT_API void dracoDecoderRelease(draco_decoder *decoder);
 
-EXPORT_API void dracoDecoderSkipAttributeTransform(draco_decoder *decoder, draco_geometry_type geo_type);
-
 EXPORT_API draco_status* dracoDecoderArrayToMesh(draco_decoder *decoder, 
                                                  const char *data, 
                                                  size_t data_size,

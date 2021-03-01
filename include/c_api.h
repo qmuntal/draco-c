@@ -37,6 +37,14 @@ extern "C" {
  #define EXPORT_API
 #endif  // defined(_WIN32)
 
+// draco::EncodedGeometryType
+
+typedef enum {
+  DRACO_EGT_INVALID = -1,
+  DRACO_EGT_POINT_CLOUD,
+  DRACO_EGT_TRIANGULAR_MESH
+} draco_encoded_geometry_type;
+
 // draco::GeometryAttribute::Type
 
 typedef enum {
@@ -152,6 +160,8 @@ EXPORT_API bool dracoMeshGetTrianglesUint32(const draco_mesh *mesh,
                                             uint32_t *out_values);
 
 // draco::Decoder
+
+EXPORT_API draco_encoded_geometry_type dracoGetEncodedGeometryType(const char *data, size_t data_size);
 
 typedef struct draco_decoder draco_decoder;
 

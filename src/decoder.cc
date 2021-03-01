@@ -3,6 +3,16 @@
 #include "c_api.h"
 #include "draco/compression/decode.h"
 
+draco_encoded_geometry_type dracoGetEncodedGeometryType(const char *data, size_t data_size) {
+  draco::DecoderBuffer buffer;
+  buffer.Init(data, data_size);
+  auto type = draco::Decoder::GetEncodedGeometryType(&buffer);
+  if (!type.ok()) {
+    return DRACO_EGT_INVALID;
+  }
+  return static_cast<draco_encoded_geometry_type>(type.value());
+}
+
 void dracoStatusRelease(draco_status *status) {
   free(status);
 }

@@ -16,12 +16,9 @@ std::string GetTestFileFullPath(const std::string &file_name) {
   return std::string(kTestDataDir) + std::string("/") + file_name;
 }
 
-draco_mesh *DecodeToDracoMesh(const std::string &file_name) {
+std::vector<char> ReadFile(const std::string &file_name) {
   std::ifstream input_file(GetTestFileFullPath(file_name),
                            std::ios::binary);
-  if (!input_file) {
-    return nullptr;
-  }
   // Read the file stream into a buffer.
   std::streampos file_size = 0;
   input_file.seekg(0, std::ios::end);
@@ -29,19 +26,17 @@ draco_mesh *DecodeToDracoMesh(const std::string &file_name) {
   input_file.seekg(0, std::ios::beg);
   std::vector<char> data(file_size);
   input_file.read(data.data(), file_size);
-  if (data.empty()) {
-    return nullptr;
-  }
-  
+  return data;
+}
+
+TEST(DracoCAPITest, TestDecode) {
+  auto data = ReadFile("test_nm.obj.edgebreaker.cl4.2.2.drc");
+  auto egt_type = dracoGetEncodedGeometryType(data.data(), data.size());
+  ASSERT_EQ(egt_type, DRACO_EGT_TRIANGULAR_MESH);
   auto mesh = dracoNewMesh();
   auto decoder = dracoNewDecoder();
   dracoDecoderDecodeMesh(decoder, data.data(), data.size(), mesh);
   dracoDecoderRelease(decoder);
-  return mesh;
-}
-
-TEST(DracoCAPITest, TestDecode) {
-  auto mesh = DecodeToDracoMesh("test_nm.obj.edgebreaker.cl4.2.2.drc");
   ASSERT_NE(mesh, nullptr);
   auto num_faces = dracoMeshNumFaces(mesh);
   ASSERT_EQ(num_faces, 170);

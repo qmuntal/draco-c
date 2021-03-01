@@ -144,20 +144,12 @@ EXPORT_API void dracoMeshRelease(draco_mesh *mesh);
 EXPORT_API uint32_t dracoMeshNumFaces(const draco_mesh *mesh);
 
 // Queries an array of 3*face_count elements containing the triangle indices.
-// out_values must be allocated to contain at least 3*face_count uint16_t elements.
-// out_size must be exactly 3*face_count*sizeof(uint16_t), else out_values
-// won't be filled and returns false.
-EXPORT_API bool dracoMeshGetTrianglesUint16(const draco_mesh *mesh,
-                                            const size_t out_size,
-                                            uint16_t *out_values);
-
-// Queries an array of 3*face_count elements containing the triangle indices.
 // out_values must be allocated to contain at least 3*face_count uint32_t elements.
 // out_size must be exactly 3*face_count*sizeof(uint32_t), else out_values
 // won't be filled and returns false.
-EXPORT_API bool dracoMeshGetTrianglesUint32(const draco_mesh *mesh,
-                                            const size_t out_size,
-                                            uint32_t *out_values);
+EXPORT_API bool dracoMeshGetIndices(const draco_mesh *mesh,
+                                    const size_t out_size,
+                                    uint32_t *out_values);
 
 // draco::Decoder
 

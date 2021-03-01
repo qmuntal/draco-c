@@ -46,7 +46,7 @@ TEST(DracoCAPITest, TestDecode) {
 
   auto indices_size = 3 * num_faces * sizeof(uint32_t);
   uint32_t *indices = (uint32_t *)malloc(indices_size);
-  ASSERT_TRUE(dracoMeshGetTrianglesUint32(mesh, indices_size, indices));
+  ASSERT_TRUE(dracoMeshGetIndices(mesh, indices_size, indices));
   free(indices);
 
   auto pa1 = dracoPointCloudGetAttribute(mesh, 0);

@@ -26,7 +26,7 @@ const draco_point_attr* dracoPointCloudGetAttribute(const draco_point_cloud *pc,
   return reinterpret_cast<const draco_point_attr*>(attr);
 }
 
-int32_t dracoPointCloudGetNamedAttributeId(const draco_point_cloud *pc, draco_geometry_type geo_type) {
+int32_t dracoPointCloudGetNamedAttributeId(const draco_point_cloud *pc, draco_geometry_attr_type geo_type) {
   auto type = static_cast<draco::GeometryAttribute::Type>(geo_type);
   return reinterpret_cast<const draco::PointCloud*>(pc)->GetNamedAttributeId(type);
 }
@@ -87,28 +87,28 @@ bool dracoPointCloudGetAttributeData(const draco_point_cloud *pc,
   auto pcc = reinterpret_cast<const draco::PointCloud*>(pc);
   auto pac = reinterpret_cast<const draco::PointAttribute*>(pa);
   switch (data_type) {
-    case DT_INT8:
+    case DRACO_DT_INT8:
       return GetAttributeDataArrayForAllPoints<int8_t>(pcc, pac, draco::DT_INT8,
                                                        out_size, out_values);
-    case DT_INT16:
+    case DRACO_DT_INT16:
       return GetAttributeDataArrayForAllPoints<int16_t>(pcc, pac, draco::DT_INT16,
                                                         out_size, out_values);
-    case DT_INT32:
+    case DRACO_DT_INT32:
       return GetAttributeDataArrayForAllPoints<int32_t>(pcc, pac, draco::DT_INT32,
                                                         out_size, out_values);
-    case DT_UINT8:
+    case DRACO_DT_UINT8:
       return GetAttributeDataArrayForAllPoints<uint8_t>(pcc, pac, draco::DT_UINT8,
                                                         out_size, out_values);
-    case DT_UINT16:
+    case DRACO_DT_UINT16:
       return GetAttributeDataArrayForAllPoints<uint16_t>(pcc, pac, draco::DT_UINT16,
                                                          out_size, out_values);
-    case DT_UINT32:
+    case DRACO_DT_UINT32:
       return GetAttributeDataArrayForAllPoints<uint32_t>(pcc, pac, draco::DT_UINT32,
                                                          out_size, out_values);
-    case DT_FLOAT32:
+    case DRACO_DT_FLOAT32:
       return GetAttributeDataArrayForAllPoints<float>(pcc, pac, draco::DT_FLOAT32,
                                                       out_size, out_values);
-    case DT_FLOAT64:
+    case DRACO_DT_FLOAT64:
       return GetAttributeDataArrayForAllPoints<double>(pcc, pac, draco::DT_FLOAT64,
                                                        out_size, out_values);
     default:

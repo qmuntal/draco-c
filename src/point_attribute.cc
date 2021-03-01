@@ -7,9 +7,9 @@ size_t dracoPointAttrSize(const draco_point_attr* attr) {
   return reinterpret_cast<const draco::PointAttribute*>(attr)->size();
 }
 
-draco_geometry_type dracoPointAttrType(const draco_point_attr* attr) {
+draco_geometry_attr_type dracoPointAttrType(const draco_point_attr* attr) {
   auto attr_type = reinterpret_cast<const draco::PointAttribute*>(attr)->attribute_type();
-  return static_cast<draco_geometry_type>(attr_type);
+  return static_cast<draco_geometry_attr_type>(attr_type);
 }
 
 draco_data_type dracoPointAttrDataType(const draco_point_attr* attr) {

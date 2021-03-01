@@ -55,16 +55,16 @@ TEST(DracoCAPITest, TestDecode) {
   free(indices);
 
   auto pa1 = dracoPointCloudGetAttribute(mesh, 0);
-  ASSERT_EQ(dracoPointAttrType(pa1), GT_POSITION);
-  ASSERT_EQ(dracoPointAttrDataType(pa1), DT_FLOAT32);
+  ASSERT_EQ(dracoPointAttrType(pa1), DRACO_GAT_POSITION);
+  ASSERT_EQ(dracoPointAttrDataType(pa1), DRACO_DT_FLOAT32);
   ASSERT_EQ(dracoPointAttrNumComponents(pa1), 3);
   ASSERT_FALSE(dracoPointAttrNormalized(pa1));
   ASSERT_EQ(dracoPointAttrByteStride(pa1), 12);
   ASSERT_EQ(dracoPointAttrUniqueId(pa1), 0);
 
   auto pa2 = dracoPointCloudGetAttribute(mesh, 1);
-  ASSERT_EQ(dracoPointAttrType(pa2), GT_NORMAL);
-  ASSERT_EQ(dracoPointAttrDataType(pa2), DT_FLOAT32);
+  ASSERT_EQ(dracoPointAttrType(pa2), DRACO_GAT_NORMAL);
+  ASSERT_EQ(dracoPointAttrDataType(pa2), DRACO_DT_FLOAT32);
   ASSERT_EQ(dracoPointAttrNumComponents(pa2), 3);
   ASSERT_FALSE(dracoPointAttrNormalized(pa2));
   ASSERT_EQ(dracoPointAttrByteStride(pa2), 12);
@@ -72,9 +72,9 @@ TEST(DracoCAPITest, TestDecode) {
 
   auto arr_size = 3*99*sizeof(float);
   auto arr = (float *)malloc(arr_size);
-  ASSERT_TRUE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size, arr));
-  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size+1, arr));
-  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DT_FLOAT32, arr_size-1, arr));
+  ASSERT_TRUE(dracoPointCloudGetAttributeData(mesh, pa2, DRACO_DT_FLOAT32, arr_size, arr));
+  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DRACO_DT_FLOAT32, arr_size+1, arr));
+  ASSERT_FALSE(dracoPointCloudGetAttributeData(mesh, pa2, DRACO_DT_FLOAT32, arr_size-1, arr));
 
   dracoMeshRelease(mesh);
 }

@@ -40,29 +40,29 @@ extern "C" {
 // draco::GeometryAttribute::Type
 
 typedef enum {
-    GT_INVALID = -1,
-    GT_POSITION,
-    GT_NORMAL,
-    GT_COLOR,
-    GT_TEX_COORD,
-    GT_GENERIC
-} draco_geometry_type;
+    DRACO_GAT_INVALID = -1,
+    DRACO_GAT_POSITION,
+    DRACO_GAT_NORMAL,
+    DRACO_GAT_COLOR,
+    DRACO_GAT_TEX_COORD,
+    DRACO_GAT_GENERIC
+} draco_geometry_attr_type;
 
 // draco::DataType
 
 typedef enum {
-  DT_INVALID,
-  DT_INT8,
-  DT_UINT8,
-  DT_INT16,
-  DT_UINT16,
-  DT_INT32,
-  DT_UINT32,
-  DT_INT64,
-  DT_UINT64,
-  DT_FLOAT32,
-  DT_FLOAT64,
-  DT_BOOL
+  DRACO_DT_INVALID,
+  DRACO_DT_INT8,
+  DRACO_DT_UINT8,
+  DRACO_DT_INT16,
+  DRACO_DT_UINT16,
+  DRACO_DT_INT32,
+  DRACO_DT_UINT32,
+  DRACO_DT_INT64,
+  DRACO_DT_UINT64,
+  DRACO_DT_FLOAT32,
+  DRACO_DT_FLOAT64,
+  DRACO_DT_BOOL
 } draco_data_type;
 
 typedef const char* draco_string; // NULL terminated  
@@ -87,7 +87,7 @@ typedef struct draco_point_attr draco_point_attr;
 
 EXPORT_API size_t dracoPointAttrSize(const draco_point_attr* pa);
 
-EXPORT_API draco_geometry_type dracoPointAttrType(const draco_point_attr* pa);
+EXPORT_API draco_geometry_attr_type dracoPointAttrType(const draco_point_attr* pa);
 
 EXPORT_API draco_data_type dracoPointAttrDataType(const draco_point_attr* pa);
 
@@ -115,7 +115,7 @@ EXPORT_API int32_t dracoPointCloudNumAttrs(const draco_point_cloud *pc);
 
 EXPORT_API const draco_point_attr* dracoPointCloudGetAttribute(const draco_point_cloud *pc, int32_t att_id);
 
-EXPORT_API int32_t dracoPointCloudGetNamedAttributeId(const draco_point_cloud *pc, draco_geometry_type geo_type);
+EXPORT_API int32_t dracoPointCloudGetNamedAttributeId(const draco_point_cloud *pc, draco_geometry_attr_type geo_type);
 
 EXPORT_API const draco_point_attr* dracoPointCloudGetAttributeByUniqueId(const draco_point_cloud *pc, uint32_t unique_id);
 

@@ -6,7 +6,7 @@ project (draco_c C CXX)
 FetchContent_Declare(
     draco
     GIT_REPOSITORY https://github.com/google/draco.git
-    GIT_TAG        master
+    GIT_TAG        1.5.6
 )
 
 FetchContent_GetProperties(draco)
@@ -29,8 +29,8 @@ list(APPEND draco_c_public_api "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(draco_INCLUDE_DIRS "${draco_SOURCE_DIR}/src" "${CMAKE_BINARY_DIR}")
 
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if(BUILD_SHARED_LIBS)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     set(draco_lib_type SHARED)
 else()
     set(draco_lib_type STATIC)
@@ -87,7 +87,7 @@ if(DRACO_C_TESTS)
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG        release-1.10.0
+        GIT_TAG        release-1.12.1
     )
     FetchContent_GetProperties(googletest)
     if(NOT googletest_POPULATED)
